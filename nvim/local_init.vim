@@ -7,6 +7,8 @@ autocmd FileType python setlocal noet ci pi sts=0 sw=4 ts=4
 colorscheme nightfox
 
 "plugin configs
+let g:conoline_auto_enable = 1
+let g:conoline_use_colorscheme_default_normal=1
 let g:hardtime_default_on = 1
 
 let g:better_escape_shortcut = ['jk', 'jj', 'kj'] 
@@ -34,14 +36,36 @@ lua << EOF
 require("lspconfig").pylsp.setup{}
 EOF
 
+lua << EOF
+local autosave = require("autosave")
+
+autosave.setup(
+    {
+        enabled = true,
+        execution_message = "AutoSave: saved at " .. vim.fn.strftime("%H:%M:%S"),
+        events = {"InsertLeave", "TextChanged"},
+        conditions = {
+            exists = true,
+            filename_is_not = {},
+            filetype_is_not = {},
+            modifiable = true
+        },
+        write_all_buffers = false,
+        on_off_commands = true,
+        clean_command_line_interval = 0,
+        debounce_delay = 10000
+    }
+)
+EOF
+
 set completeopt-=preview
 
 " use omni completion provided by lsp
 autocmd Filetype python setlocal omnifunc=v:lua.vim.lsp.omnifunc
 "mappings
 " Find files using Telescope command-line sugar.
-nnoremap <leader>ff <cmd>Telescope find_files<cr>
-nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>ff <cmd>Telescope find_files theme=get_dropdown<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep theme=get_dropdown<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 

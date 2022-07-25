@@ -45,15 +45,23 @@ root: ~/Devel/seller_centre
 # attach: false
 
 windows:
-  - python:
-      layout: main-vertical 
-      root: ~/Devel/seller_centre
+  - bff:
+      layout: 2afb,82x66,0,0[82x50,0,0,17,82x15,0,51,21]
+      root: ~/Devel/seller_centre/seller_payment
       panes:
         - nvim
+        -
+  - sc-backend:
+      layout: 2afb,82x66,0,0[82x50,0,0,17,82x15,0,51,21]
+      root: ~/Devel/seller_centre/wallet_backend
+      panes:
+        - nvim
+        -
   - go:
-      layout: main-vertical 
-      root: ~/Devel/seller_centre
+      layout: 2afb,82x66,0,0[82x50,0,0,17,82x15,0,51,21]
+      root: ~/Devel/seller_centre/wallet_share_service
       panes:
         - nvim
+        -
   - scratch:
-      layout: main-vertical 
+      root: ~/Devel/seller_centre
